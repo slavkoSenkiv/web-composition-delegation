@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "@types/node": "^20.7.2",
+    "axios": "^1.5.1",
+    "concurrently": "^8.2.1",
+    "json-server": "^0.17.4",
+    "parcel": "^2.9.3"
+  },
+  "name": "webcompositiondelegation",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "start:run": "nodemon build/index.js",
+    "start:build": "tsc -w",
+    "start:parcel": "npx parcel index.html",
+    "start:db": "json-server -w db.json",
+    "start": "concurrently \"npm:start:run\" \"npm:start:build\" \"npm:start:parcel\" \"npm:start:db\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
