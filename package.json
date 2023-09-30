@@ -9,7 +9,9 @@
   "name": "webcompositiondelegation",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "buffer": "^6.0.3"
+  },
   "scripts": {
     "start:run": "nodemon build/index.js",
     "start:build": "tsc -w",
