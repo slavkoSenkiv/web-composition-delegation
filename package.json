@@ -13,12 +13,10 @@
     "buffer": "^6.0.3"
   },
   "scripts": {
-    "start:run": "nodemon build/index.js",
-    "start:build": "tsc -w",
-    "start:parcel": "npx parcel index.html",
     "start:db": "json-server -w db.json",
-    "start": "concurrently \"npm:start:run\" \"npm:start:build\" \"npm:start:parcel\" \"npm:start:db\""
+    "start:parcel": "parcel index.html"
   },
+  
   "keywords": [],
   "author": "",
   "license": "ISC",
