@@ -1,7 +1,20 @@
-export class User {
-  constructor (public name: string) {}
+import { Attributes } from "./Attributes";
 
-  sayHi (){
-    console.log(`Hello, ${this.name}!`);
+interface UserProps {
+  id? : number;
+  name? : string;
+  age? : number;
+}
+
+export class User {
+
+  public attributes: Attributes<UserProps>;
+
+  constructor(attrs: UserProps) {
+    this.attributes = new Attributes(attrs);
+  }
+
+  get get() {
+    return this.attributes.get;
   }
 }
