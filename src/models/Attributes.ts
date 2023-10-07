@@ -6,4 +6,8 @@ export class Attributes<T extends object> {
     return this.data[key];
   }
 
+  set(update: T): void {
+    Object.assign(this.data, update);
+  }
+
 }
