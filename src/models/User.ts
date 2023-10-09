@@ -1,8 +1,7 @@
-import { error } from "console";
 import { Attributes } from "./Attributes";
 import { Eventing } from "./Eventing";
 import { Sync } from "./Sync";
-import axios, {AxiosResponse} from 'axios';
+import { AxiosResponse } from 'axios';
 
 interface UserProps {
   id? : number;
@@ -42,15 +41,21 @@ export class User {
   fetch(): void {
     let id = this.attributes.get('id');
     if (typeof(id) != 'number') {
-      throw new Error ('cannot fetch without an id')};
+      throw new Error ('cannot fatch without id');
+    }
     this.sync.fetch(id).then((response: AxiosResponse) => {
-      this.attributes.set(response.data)});
+      this.set(response.data);
+    })
   }
 
-
-
-
-
-
+  save(): void {
+    this.sync.save(this.attributes.getAll())
+      .then((response: AxiosResponse): void => {
+        this.trigger('save');
+      })
+      .catch(()=>{
+        this.trigger('error');
+      });
+  }
 
 }
