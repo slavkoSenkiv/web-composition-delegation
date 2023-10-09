@@ -1,5 +1,8 @@
+import { error } from "console";
 import { Attributes } from "./Attributes";
 import { Eventing } from "./Eventing";
+import { Sync } from "./Sync";
+import axios, {AxiosResponse} from 'axios';
 
 interface UserProps {
   id? : number;
@@ -7,10 +10,13 @@ interface UserProps {
   age? : number;
 }
 
+const rootUrl = 'https://localhost:3000/users'
+
 export class User {
 
   private attributes: Attributes<UserProps>;
   private events: Eventing = new Eventing();
+  private sync: Sync<UserProps> = new Sync<UserProps>(rootUrl);
 
   constructor(attrs: UserProps) {
     this.attributes = new Attributes(attrs);
@@ -22,7 +28,7 @@ export class User {
 
   set (update: UserProps): void{
     this.attributes.set(update);
-    //this.eventing.trigger('change');
+    this.events.trigger('change');
   }
 
   get on() {
@@ -32,6 +38,17 @@ export class User {
   get trigger() {
     return this.events.trigger;
   }
+
+  fetch(): void {
+    let id = this.attributes.get('id');
+    if (typeof(id) != 'number') {
+      throw new Error ('cannot fetch without an id')};
+    this.sync.fetch(id).then((response: AxiosResponse) => {
+      this.attributes.set(response.data)});
+  }
+
+
+
 
 
 
