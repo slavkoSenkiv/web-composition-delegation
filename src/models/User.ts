@@ -9,7 +9,7 @@ interface UserProps {
   age? : number;
 }
 
-const rootUrl = 'https://localhost:3000/users'
+const rootUrl = 'http://localhost:3000/users'
 
 export class User extends Model<UserProps> {
   static buildUser(attrs: UserProps): User {
