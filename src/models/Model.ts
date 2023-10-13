@@ -31,7 +31,7 @@ export class Model<T extends HasId> {
   on = this.events.on;
   trigger = this.events.trigger;
   
-  set (update: T): void{
+  set (update: T): void {
     this.attributes.set(update);
     this.events.trigger('change');
   }
