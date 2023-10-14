@@ -15,7 +15,7 @@ export class ApiSync<T extends HasId> {
   save(data: T): AxiosPromise {
     let { id } = data;
     if (id) { return axios.put(`${this.rootUrl}/${id}`, data)}
-    else { return axios.post(this.rootUrl, data)}; //discrepancies
+    else { return axios.post(`${this.rootUrl}`, data)};
   }
 
 }

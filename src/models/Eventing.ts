@@ -1,4 +1,4 @@
-type Callback = () => {};
+type Callback = () => void;
 
 export class Eventing {
 
@@ -12,7 +12,7 @@ export class Eventing {
 
   trigger = (eventName: string): void => {
     let handlers = this.events[eventName];
-    if (!handlers || handlers.length === 0) { return };
+    if (!handlers || handlers.length === 0)  return ;
     handlers.forEach(callback => callback());
   }
 }

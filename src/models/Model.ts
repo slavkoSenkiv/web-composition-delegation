@@ -7,7 +7,7 @@ interface ModelAttributes<T> {
 }
 
 interface Events {
-  on(eventName: string, callback: () => {}): void;
+  on(eventName: string, callback: () => void): void;
   trigger(eventName: string): void;
 }
 
