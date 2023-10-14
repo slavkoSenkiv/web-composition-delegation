@@ -2,8 +2,9 @@ import { ApiSync } from "./ApiSynk";
 import { Attributes } from "./Attributes";
 import { Eventing } from "./Eventing";
 import { Model } from "./Model";
+import { Collection } from "./Collection";
 
-interface UserProps {
+export interface UserProps {
   id?: number;
   name?: string;
   age?: number;
@@ -19,4 +20,11 @@ export class User extends Model<UserProps> {
       new Eventing()
     );
   };
+
+  static buildUserCollection(): Collection<User, UserProps> {
+    return new Collection<User, UserProps> (
+      rootUrl,
+      (json: UserProps) => User.buildUser(json)
+    );
+  }
 } 
