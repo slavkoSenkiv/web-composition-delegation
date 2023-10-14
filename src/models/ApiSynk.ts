@@ -1,4 +1,4 @@
-import axios, { AxiosPromise } from 'axios';
+import axios, { AxiosPromise } from "axios";
 
 interface HasId {
   id?: number;
@@ -6,7 +6,7 @@ interface HasId {
 
 export class ApiSync<T extends HasId> {
 
-  constructor (private rootUrl: string) {};
+  constructor(private rootUrl: string) {};
 
   fetch(id: number): AxiosPromise {
     return axios.get(`${this.rootUrl}/${id}`);
@@ -14,8 +14,8 @@ export class ApiSync<T extends HasId> {
 
   save(data: T): AxiosPromise {
     let { id } = data;
-    if (id) { return axios.put(`${this.rootUrl}/${id}`, data)} 
-    else {return axios.post(`${this.rootUrl}`, data)};
+    if (id) { return axios.put(`${this.rootUrl}/${id}`, data)}
+    else { return axios.post(`${this.rootUrl}`, data)};
   }
 
 }

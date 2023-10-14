@@ -1,24 +1,8 @@
 import { User } from "./models/User";
-const user = User.buildUser({ id: 1});
-user.on('change', ()=>{
-  console.log(user);
-});
-user.fetch();
 
-//const user = User.buildUser({ name: 'slav4', age: 23 });
-//user.save();
-/* console.log(user);
-console.log(user.get('name'));
-user.set({name: 'slav'});
-console.log(user);
-console.log(user.get('name'));
-user.on('print', ()=>console.log(`hello ${user.get('name')}`));
-console.log(user);
-user.trigger('print');
-user.trigger('change');
-user.trigger('dummy'); */
+const user1 = User.buildUser({ id: 1});
+user1.on('change', () => console.log(user1));
+user1.fetch();
 
-
-
-
-
+const user2 = User.buildUser({name: 'petro', age: 32});
+user2.save();
