@@ -1,5 +1,4 @@
-import axios, { AxiosPromise, AxiosResponse } from 'axios';
-
+import { AxiosPromise, AxiosResponse } from 'axios';
 
 interface ModelAttributes<T> {
   get<K extends keyof T>(key: K): T[K];
@@ -17,9 +16,8 @@ interface HasId {
 }
 
 interface Sync<T> {
-  rootUrl: string; //discremencies
   fetch (id: number): AxiosPromise;
-  save (data: T): AxiosPromise;
+  save (date: T): AxiosPromise;
 }
 
 export class Model<T extends HasId> {
@@ -38,24 +36,17 @@ export class Model<T extends HasId> {
     this.events.trigger('change');
   }
 
-  fetch (): void {
-    let id = this.get('id'); // discrepencies
-    if (typeof(id) != 'number') {
-      throw new Error ('can not fetch without an ID');
-    }
-    this.sync.fetch(id)
-      .then ((response: AxiosResponse) => {
-        this.set(response.data);
-      });
+  fetch(): void {
+    let id = this.attributes.get('id');
+    if (typeof(id) != 'number') throw new Error ('cannot fetch without an ID'); //discrepencies
+    this.sync.fetch(id).then((response: AxiosResponse) => this.set(response.data)); //discrepencies
   }
 
-  save (): void {
+  save(): void {
     this.sync.save(this.attributes.getAll())
-      .then((response: AxiosResponse): void => {
-        this.trigger('save');
-      })
-      .catch(() => {
-        this.trigger('error')
-      });
+      .then((response: AxiosResponse) => this.trigger('save')) //discrepencies
+      .catch(() => this.trigger('error')) //discrepencies
   }
+
+
 }
