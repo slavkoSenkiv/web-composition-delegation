@@ -24,7 +24,6 @@ export class Collection<T, K> {
         respose.data.forEach((value: K) => {
           this.models.push(this.deserialize(value));
         });
-
         this.trigger('change');
       });
   }
