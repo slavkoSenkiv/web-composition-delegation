@@ -15,11 +15,8 @@ axios.get('http://localhost:3000/users')
     console.log(response.data);
     
   }) */
-
-import { User } from "./models/User";
-
+import { User } from "./models/User"
 const collection = User.buildUserCollection();
-
 collection.on('change', () => {
   console.log(collection);
 });
