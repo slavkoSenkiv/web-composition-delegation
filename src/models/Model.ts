@@ -38,15 +38,21 @@ export class Model<T extends HasId> {
 
   fetch(): void {
     let id = this.attributes.get('id');
-    if (typeof(id) != 'number') throw new Error ('cannot fetch without an ID'); //discrepencies
-    this.sync.fetch(id).then((response: AxiosResponse) => this.set(response.data)); //discrepencies
+    if (typeof(id) != 'number') {
+      throw new Error ('cannot fetch without an ID');
+    }; 
+    this.sync.fetch(id).then((response: AxiosResponse) => {
+      this.set(response.data);
+    }); 
   }
 
   save(): void {
     this.sync.save(this.attributes.getAll())
-      .then((response: AxiosResponse) => this.trigger('save')) //discrepencies
-      .catch(() => this.trigger('error')) //discrepencies
+      .then((response: AxiosResponse) => {
+        this.trigger('save');
+      })
+      .catch(() => {
+        this.trigger('error');
+      });
   }
-
-
 }
