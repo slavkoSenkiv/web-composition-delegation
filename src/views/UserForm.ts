@@ -1,29 +1,34 @@
+
+import { User } from "../models/User";
+
 export class UserForm {
 
-  constructor(private parent: Element) {};
+  constructor (
+    private parent: Element, 
+    public model: User
+  ) {};
 
-  eventsMap(): {[key: string]: ()=> void} {
+  eventsMap(): {[key: string]: ()=>void} {
     return {
-      'click:button': this.onButtonClick,
-      'mouseenter:h1': this.onHeaderHover
-    };
+      'click:.set-age': this.onSetAgeClick
+    }
   }
 
-  onHeaderHover(): void {
-    console.log('H1 was hovered over');
+  onSetAgeClick = (): void => {
+    this.model.setRandomAge();
   }
-  
-  onButtonClick(): void {
-    console.log('hello there');
-  }
+
 
   template(): string {
     return `
-    <div>
-      <h1>User Form</h1>
-      <input />
-      <button>Click Me</button>
-    </div>
+      <div>
+        <h1>User Form</h1>
+        <div>User name: ${this.model.get('name')}</div>
+        <div>User age: ${this.model.get('age')}</div>
+        <input/>
+        <button>click here</button>
+        <button class="set-age">Set Random Age</button>
+      </div>
     `;
   }
 
@@ -31,17 +36,17 @@ export class UserForm {
     let eventsMap = this.eventsMap();
     for (let eventKey in eventsMap) {
       let [ eventName, selector ] = eventKey.split(':');
-      fragment.querySelectorAll(selector).forEach(element => {
+      fragment.querySelectorAll(selector).forEach((element) => {
         element.addEventListener(eventName, eventsMap[eventKey]);
       });
     }
   }
 
-
   render(): void {
-    let tempateElement = document.createElement('template');
-    tempateElement.innerHTML = this.template();
-    this.bindEvents(tempateElement.content);
-    this.parent.append(tempateElement.content);
+    let templateElement = document.createElement('template');
+    templateElement.innerHTML = this.template();
+    this.bindEvents(templateElement.content);
+    this.parent.append(templateElement.content);
   }
+
 }
