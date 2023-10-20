@@ -1,24 +1,16 @@
 import { User, UserProps } from "../models/User";
 import { View } from "./View";
 
-export class UserForm extends View<User, UserProps> {
-
-  eventsMap(): {[key: string]: ()=>void} {
+export class UserForm extends View <User, UserProps> {
+  
+  eventMap(): {[key: string]: ()=> void}{
     return {
-      'click:.set-age': this.onSetAgeClick,
       'click:.set-name': this.onSetNameClick,
-      'click:.save-model': this.onSaveClick,
+      'click:.set-age': this.onSetAgeClick,
+      'click:.save-model': this.onSaveClick
     }
   }
 
-  onSetAgeClick = (): void => {
-    this.model.setRandomAge();
-  }
-  
-  onSaveClick = (): void => {
-    this.model.save();
-  }
-  
   onSetNameClick = (): void => {
     let input = this.parent.querySelector('input');
     if(input) {
@@ -27,7 +19,15 @@ export class UserForm extends View<User, UserProps> {
     }
   }
 
-  template(): string {
+  onSetAgeClick = (): void => {
+    this.model.setRandomAge();
+  }
+
+  onSaveClick = (): void => {
+    this.model.save();
+  }
+
+  template(): string{
     return `
       <div>
         <input 
@@ -41,6 +41,4 @@ export class UserForm extends View<User, UserProps> {
       </div>
     `;
   }
-
-  
 }
