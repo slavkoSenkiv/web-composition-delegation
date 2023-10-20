@@ -4,7 +4,7 @@ import { ApiSync } from "./ApiSynk";
 import { Eventing } from "./Eventing";
 import { Collection } from "./Collection";
 
-interface UserProps {
+export interface UserProps {
   id?: number;
   name?: string;
   age?: number;
