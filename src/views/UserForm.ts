@@ -18,9 +18,11 @@ export class UserForm extends View<User, UserProps> {
       this.model.set({name});
     }
   }
+
   onSetAgeClick = (): void => {
     this.model.setRandomAge();
   }
+  
   onSaveClick = (): void => {
     this.model.save();
   }
