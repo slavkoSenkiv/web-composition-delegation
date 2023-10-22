@@ -8,7 +8,7 @@ export abstract class View<T extends Model<K>, K extends HasId> {
     public parent: Element,
     public model: T
   ) {
-    this.bindModel()
+    this.bindModel();
   }
 
   abstract template(): string;
@@ -18,12 +18,12 @@ export abstract class View<T extends Model<K>, K extends HasId> {
   }
 
   eventsMap(): {[key: string]: ()=> void} {
-     return {}
+     return {};
   }
 
   bindModel(): void {
     this.model.on('change', () => {
-      this.render;
+      this.render();
     });
   }
 

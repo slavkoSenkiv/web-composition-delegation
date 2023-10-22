@@ -5,14 +5,14 @@ import { UserShow } from "./UserShow";
 
 export class UserEdit extends View<User, UserProps> {
 
-  regionsMap(): { [key: string]: string; } {
+  regionsMap(): { [key: string]: string } {
     return {
-      userShow: '.user-show',
-      userForm: '.user-form'
+      userShow: ".user-show",
+      userForm: ".user-form"
     };
   }
 
-  onRender(): void {
+  onRender = (): void => {
     new UserShow(this.regions.userShow, this.model).render();
     new UserForm(this.regions.userForm, this.model).render();
   }
