@@ -3,10 +3,9 @@ import { UserEdit } from "./views/UserEdit";
 const user = User.buildUser({ name: "petro", age: 20});
 const root = document.getElementById('root');
 if (root) {
-  const userEdit = new UserEdit(root, user);
+  let userEdit = new UserEdit(root, user);
   userEdit.render();
   console.log(userEdit);
-  
 } else {
   throw new Error ('root id or element with that id is missing');
 }

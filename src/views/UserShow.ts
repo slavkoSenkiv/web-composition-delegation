@@ -2,6 +2,10 @@ import { User, UserProps } from "../models/User";
 import { View } from "./View";
 
 export class UserShow extends View<User, UserProps>{
+
+  
+  /* 
+  is html string used by parent class render method later */
   template(): string {
     return `
       <div>

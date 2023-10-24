@@ -3,6 +3,10 @@ import { View } from "./View";
 
 export class UserForm extends View<User, UserProps> {
 
+  /* 
+  lists what elements should have what event event listeners 
+  and actions for those event listeners 
+  later it is used by parent class bindEvents method  */
   eventsMap(): { [key: string]: () => void; } {
     return {
       'click:.set-name': this.onSetNameClick,
@@ -11,6 +15,8 @@ export class UserForm extends View<User, UserProps> {
     }
   }
 
+  /* 
+  used as callback for event click event listener */
   onSetNameClick = (): void => {
     let input = document.querySelector('input');
     if (input) {
@@ -19,14 +25,20 @@ export class UserForm extends View<User, UserProps> {
     }
   }
 
+  /* 
+  used as callback for event click event listener */
   onSetAgeClick = (): void => {
     this.model.setRandomAge();
   }
   
+  /* 
+  used as callback for event click event listener */
   onSaveClick = (): void => {
     this.model.save();
   }
 
+  /* 
+  is html string used by parent class render method later */
   template(): string {
     return `
     <div>
