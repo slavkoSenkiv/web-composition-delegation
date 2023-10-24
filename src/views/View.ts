@@ -12,21 +12,29 @@ export abstract class View<T extends Model<K>, K extends HasId> {
   }
 
   abstract template(): string;
-
-  regionsMap(): { [key: string]: string } {
-    return {};
+  
+  onRender(): void {
   }
 
   eventsMap(): {[key: string]: ()=> void} {
      return {};
   }
 
-  bindModel(): void {
+  regionsMap(): { [key: string]: string } {
+    return {};
+  }
+
+  /* 
+  makes page rerender every time when 
+  'change' event is triggered in the data model
+  by lising render method as one of 'change' event callbacks */
+  bindModel(): void {  
     this.model.on('change', () => {
       this.render();
     });
   }
 
+  
   bindEvents(fragment: DocumentFragment): void {
     let eventsMap = this.eventsMap();
     for (let eventKey in eventsMap) {
@@ -46,10 +54,6 @@ export abstract class View<T extends Model<K>, K extends HasId> {
         this.regions[key] = element;
       }
     }
-  }
-
-  onRender(): void {
-
   }
   
   render(): void {
