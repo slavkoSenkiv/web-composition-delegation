@@ -57,10 +57,25 @@ export abstract class View<T extends User> {
 
   abstract template(): string;
 
+  eventsMap(): {[key: string]: ()=>void} {
+    return {}
+  }
+
+  bindEvents(fragment: DocumentFragment): void {
+    let eventsMap = this.eventsMap();
+    for (let eventKey in eventsMap) {
+      let [event, selector] = eventKey.split(':');
+      fragment.querySelectorAll(selector).forEach((element)=>{
+        element.addEventListener(event, eventsMap[eventKey]);
+      });
+    }
+  }
+
   render(): void {
     this.parent.innerHTML = '';
     let tempateElement = document.createElement('template');
     tempateElement.innerHTML = this.template();
+    this.bindEvents(tempateElement.content);
     this.parent.append(tempateElement.content);
   }
 
