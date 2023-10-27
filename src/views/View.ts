@@ -50,15 +50,27 @@ import { User } from "../models/User";
 
 export abstract class View<T extends User> {
 
+  regions: {[key: string]: Element} = {};
+
   constructor (
     private parent: Element,
     public model: T
-  ) {};
+  ) {this.bindMap()};
 
   abstract template(): string;
 
+  regionsMap(): {[key: string]: string} {
+    return {};
+  }
+
   eventsMap(): {[key: string]: ()=>void} {
-    return {}
+    return {};
+  }
+
+  bindMap():void {
+    this.model.on('change', ()=>{
+      this.render();
+    });
   }
 
   bindEvents(fragment: DocumentFragment): void {
@@ -71,6 +83,17 @@ export abstract class View<T extends User> {
     }
   }
 
+  mapRegions(fragment: DocumentFragment): void {
+    let regionsMap = this.regionsMap();
+    for (let key in regionsMap) {
+      let selector = regionsMap[key];
+      let element = fragment.querySelector(selector);
+      if (element) {
+        this.regions[key] = element; 
+      }
+    }
+  }
+
   render(): void {
     this.parent.innerHTML = '';
     let tempateElement = document.createElement('template');
@@ -78,5 +101,4 @@ export abstract class View<T extends User> {
     this.bindEvents(tempateElement.content);
     this.parent.append(tempateElement.content);
   }
-
 }

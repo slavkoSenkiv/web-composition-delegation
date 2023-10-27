@@ -30,27 +30,27 @@ import { View } from "./View";
       }
     }
 
-    onSetNameClick():void {
-      console.log('set NAME button was clicked');
+    onSetNameClick = ():void => {
+      let input = document.querySelector('input');
+      if (input) {
+        let name = input.value;
+        this.model.set({name});
+      } 
     }
-    onSetAgeClick():void {
-      console.log('set AGE button was clicked');
+
+    onSetAgeClick = ():void => {
+      this.model.setRandomAge();
     }
-    onSaveUserClick():void {
-      console.log('set SAVE USER button was clicked');
+
+    onSaveUserClick = ():void => {
+      this.model.save();
     }
 
     template(): string {
       return `
         <div>
-          <h1> User Form </h1>
-          <p>
-            user name: ${this.model.get('name')}
-            </br>
-            user age: ${this.model.get('age')}
-          </p>
-          <input />
-          <button class='set-name'> Set Name </button>
+          <input placeholder="${this.model.get('name')}" />
+          <button class='set-name'name='nameInput'> Set Name </button>
           <button class='set-age'> Set Age </button>
           <button class='save-user'> Save User </button>
         </div>
