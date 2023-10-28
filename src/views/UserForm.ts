@@ -17,10 +17,10 @@
   /* 
   is html string used by parent class render method later */
 
-import { User } from "../models/User";
+import { User, UserProps } from "../models/User";
 import { View } from "./View";
 
-  export class UserForm extends View<User> {
+  export class UserForm extends View<User, UserProps> {
 
     eventsMap(): { [key: string]: () => void } {
       return {

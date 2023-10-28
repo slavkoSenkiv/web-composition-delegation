@@ -46,9 +46,11 @@
   6 - renders each of them and drills down untill there are no nested elements
   7 - nests this <template> with all the nested stuff to parent (root div)*/
 
+import { HasId } from "../models/Model";
 import { User } from "../models/User";
+import { Model } from "../models/Model";
 
-export abstract class View<T extends User> {
+export abstract class View<T extends Model<K>, K extends HasId> {
 
   regions: {[key: string]: Element} = {};
 
@@ -73,6 +75,8 @@ export abstract class View<T extends User> {
     });
   }
 
+  onRender():void {}
+
   bindEvents(fragment: DocumentFragment): void {
     let eventsMap = this.eventsMap();
     for (let eventKey in eventsMap) {
@@ -89,7 +93,7 @@ export abstract class View<T extends User> {
       let selector = regionsMap[key];
       let element = fragment.querySelector(selector);
       if (element) {
-        this.regions[key] = element; 
+        this.regions[key] = element;
       }
     }
   }
@@ -99,6 +103,8 @@ export abstract class View<T extends User> {
     let tempateElement = document.createElement('template');
     tempateElement.innerHTML = this.template();
     this.bindEvents(tempateElement.content);
+    this.mapRegions(tempateElement.content);
+    this.onRender();
     this.parent.append(tempateElement.content);
   }
 }
