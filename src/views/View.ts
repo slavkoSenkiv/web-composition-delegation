@@ -47,7 +47,6 @@
   7 - nests this <template> with all the nested stuff to parent (root div)*/
 
 import { HasId } from "../models/Model";
-import { User } from "../models/User";
 import { Model } from "../models/Model";
 
 export abstract class View<T extends Model<K>, K extends HasId> {
