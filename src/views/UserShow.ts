@@ -1,18 +1,16 @@
-import { User, UserProps } from "../models/User";
 import { View } from "./View";
+import { User, UserProps } from "../models/User";
 
-export class UserShow extends View<User, UserProps>{
+export class UserShow extends View<User, UserProps> {
 
-  
-  /* 
-  is html string used by parent class render method later */
   template(): string {
     return `
       <div>
-        <h1>User Detail</h1>
-        <div>User Name: ${this.model.get('name')}</div>
-        <div>User Age: ${this.model.get('age')}</div>
+        <h1> User Form </h1>
+        <p> user name: ${this.model.get('name')} </br>
+        user age: ${this.model.get('age')} </p>
       </div>
     `
   }
+
 }
